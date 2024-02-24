@@ -225,7 +225,7 @@
                     android:layout_gravity="center_vertical"
                     android:scaleType="centerCrop"
 
-                    android:src="@drawable/orange_juice" />
+                    android:src="@drawable/lunch_img" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -273,7 +273,7 @@
                     android:layout_gravity="center_vertical"
                     android:scaleType="centerCrop"
 
-                    android:src="@drawable/orange_juice" />
+                    android:src="@drawable/dinner_img" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

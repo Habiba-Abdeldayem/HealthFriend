@@ -67,6 +67,8 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         CardView caloriesCV = view.findViewById(R.id.calories_cv);
+        CardView waterCV = view.findViewById(R.id.water_cv);
+        CardView sleepCV = view.findViewById(R.id.sleep_cv);
 
         caloriesCV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +81,31 @@ public class HomeFragment extends Fragment {
                 ft.commit();
             }
         });
+
+        waterCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = requireActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                WaterFragment waterFragment = new WaterFragment();
+                ft.replace(R.id.home_frame_layout, waterFragment);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+
+        sleepCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = requireActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                SleepFragment sleepFragment = new SleepFragment();
+                ft.replace(R.id.home_frame_layout, sleepFragment);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+
 
         return view;
     }

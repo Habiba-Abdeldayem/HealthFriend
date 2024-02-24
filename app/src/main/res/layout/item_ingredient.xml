@@ -51,24 +51,16 @@
 
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/buttonAdd"
+        <ImageButton
+            android:id="@+id/btn_add_item"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_gravity="end"
-            android:src="@drawable/icon_add"
+            android:src="@drawable/ic_ingredient_unchecked"
             app:backgroundTint="@color/white" />
 
-<!--        <CheckBox-->
-<!--            android:id="@+id/ingredient_checkbox"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:layout_gravity="end"-->
-<!--            android:checked="true" />-->
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -5,12 +5,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
+import com.example.healthfriend.DoctorScreens.Change_meal_Fragment;
 import com.example.healthfriend.UserScreens.Adapters.BreakfastViewPagerAdapter;
 import com.example.healthfriend.R;
 import com.google.android.material.tabs.TabLayout;
@@ -22,6 +26,7 @@ import com.google.android.material.tabs.TabLayout;
  *
  */
 public class BreakfastFragment extends Fragment {
+    boolean fav_isClicked = false;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,6 +68,7 @@ public class BreakfastFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -76,34 +82,34 @@ public class BreakfastFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        breakfastTabs = view.findViewById(R.id.breakfast_tablayout);
-        breakfastViewPager = view.findViewById(R.id.breakfast_viewPager);
-        breakfastAdapter = new BreakfastViewPagerAdapter(getActivity());
-        breakfastViewPager.setAdapter(breakfastAdapter);
 
-        breakfastTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        // Now, you can add your fragment to the FrameLayout programmatically
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.child_breakfast_frame, new BreakfastTodayFragment())
+                .commit();
+
+        ImageButton favourite_btn = view.findViewById(R.id.btn_add_to_favourite);
+        ImageButton change_meal_btn = view.findViewById(R.id.btn_change_meal);
+        favourite_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                breakfastViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+            public void onClick(View view) {
+                if(!fav_isClicked){
+                    fav_isClicked = true;
+                    favourite_btn.setImageResource(R.drawable.ic_favourite_red);
+                }
+                else{
+                    fav_isClicked = false;
+                    favourite_btn.setImageResource(R.drawable.ic_favourite_grey);
+                }
             }
         });
-
-        breakfastViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        change_meal_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                breakfastTabs.getTabAt(position).select();
+            public void onClick(View view) {
+                Change_meal_Fragment change_meal_fragment = new Change_meal_Fragment();
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout, change_meal_fragment).addToBackStack(null).commit();
             }
         });
     }
+
 }

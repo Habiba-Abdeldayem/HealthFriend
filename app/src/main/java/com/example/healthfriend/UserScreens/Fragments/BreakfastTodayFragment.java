@@ -91,17 +91,17 @@ public class BreakfastTodayFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        adapter.setOnItemClickListener(new IngredientAdapter.OnItemClickListener() {
-            public void onItemClick(int position) {
-                // Handle CardView click here
-            }
-
-            @Override
-            public void onAddClick(int position) {
-                adapter.updateBackgroundColor(position, Color.GREEN);
-
-            }
-        });
+//        adapter.setOnItemClickListener(new IngredientAdapter.OnItemClickListener() {
+//            public void onItemClick(int position) {
+//                // Handle CardView click here
+//            }
+//
+//            @Override
+//            public void onAddClick(int position) {
+//                adapter.updateBackgroundColor(position, Color.GREEN);
+//
+//            }
+//        });
     }
 
 }

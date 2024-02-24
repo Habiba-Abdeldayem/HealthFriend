@@ -5,8 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey"
-    tools:context=".UserScreens.Fragments.BreakfastFragment">
-
+    tools:context=".UserScreens.Fragments.BreakfastFragment"
+    >
+<FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/breakfast_frame_layout"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,13 +45,6 @@
 
             </LinearLayout>
         </Toolbar>
-
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:iconifiedByDefault="false"
-            android:queryHint="Search for meal" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -195,32 +193,53 @@
         </androidx.cardview.widget.CardView>
 
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/breakfast_tablayout"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:padding="8dp"
+                android:text="Today's meal"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btn_change_meal"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_change_meal"
+                    android:background="@drawable/bg_change_meal"
+                    android:drawableEnd="@drawable/ic_change_meal"
+                    android:padding="8dp" />
+
+                <ImageButton
+                    android:id="@+id/btn_add_to_favourite"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="4dp"
+                    android:src="@drawable/ic_favourite_grey"
+                    android:background="@drawable/bg_change_meal"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/child_breakfast_frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Today's meal">
-
-            </com.google.android.material.tabs.TabItem>
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Favourites">
-
-            </com.google.android.material.tabs.TabItem>
-
-        </com.google.android.material.tabs.TabLayout>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/breakfast_viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
+        </FrameLayout>
     </LinearLayout>
+</FrameLayout>
 </FrameLayout>
