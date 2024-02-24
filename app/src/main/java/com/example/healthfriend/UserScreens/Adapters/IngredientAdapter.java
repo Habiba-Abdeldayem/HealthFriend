@@ -78,7 +78,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
             textViewCalories = itemView.findViewById(R.id.textViewCalories);
             textViewServingSize = itemView.findViewById(R.id.textViewServingSize);
             imageViewAddItem = itemView.findViewById(R.id.btn_add_item);
-            imageViewFav = itemView.findViewById(R.id.btn_add_to_favourite);
+            imageViewFav = itemView.findViewById(R.id.breakfast_btn_add_to_favourite);
             cardView = itemView.findViewById(R.id.cardView); // Initialize CardView reference
         }
     }

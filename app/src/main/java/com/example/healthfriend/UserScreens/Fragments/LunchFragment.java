@@ -4,23 +4,23 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
+import com.example.healthfriend.DoctorScreens.Change_meal_Fragment;
 import com.example.healthfriend.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CaloriesFragment#newInstance} factory method to
+ * Use the {@link LunchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CaloriesFragment extends Fragment {
+public class LunchFragment extends Fragment {
+    boolean lunch_fav_isClicked = false;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,7 +31,7 @@ public class CaloriesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public CaloriesFragment() {
+    public LunchFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +41,11 @@ public class CaloriesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CaloriesFragment.
+     * @return A new instance of fragment LunchFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CaloriesFragment newInstance(String param1, String param2) {
-        CaloriesFragment fragment = new CaloriesFragment();
+    public static LunchFragment newInstance(String param1, String param2) {
+        LunchFragment fragment = new LunchFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,46 +65,40 @@ public class CaloriesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_calories, container, false);
-
-        return view;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_lunch, container, false);
     }
 
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        CardView breakfastCv = view.findViewById(R.id.breakfast_cv);
-        CardView lunchCv = view.findViewById(R.id.lunch_cv);
-        CardView dinnerCv = view.findViewById(R.id.dinner_cv);
+        // Now, you can add your fragment to the FrameLayout programmatically
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.child_lunch_frame, new LunchTodayFragment())
+                .commit();
 
-        breakfastCv.setOnClickListener(new View.OnClickListener() {
+        ImageButton favourite_btn = view.findViewById(R.id.lunch_btn_add_to_favourite);
+        ImageButton change_meal_btn = view.findViewById(R.id.lunch_btn_change_meal);
+        favourite_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fm = requireActivity().getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                BreakfastFragment breakfastFragment = new BreakfastFragment();
-                ft.replace(R.id.home_frame_layout, breakfastFragment);
-                ft.addToBackStack(null); // Add this line to enable back navigation
-                ft.commit();
+                if(!lunch_fav_isClicked){
+                    lunch_fav_isClicked = true;
+                    favourite_btn.setImageResource(R.drawable.ic_favourite_red);
+                }
+                else{
+                    lunch_fav_isClicked = false;
+                    favourite_btn.setImageResource(R.drawable.ic_favourite_grey);
+                }
             }
         });
-
-        lunchCv.setOnClickListener(new View.OnClickListener() {
+        change_meal_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LunchFragment lunchFragment = new LunchFragment();
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout, lunchFragment).addToBackStack(null).commit();
+                Change_meal_Fragment change_meal_fragment = new Change_meal_Fragment();
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout, change_meal_fragment).addToBackStack(null).commit();
             }
         });
-        dinnerCv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DinnerFragment dinnerFragment = new DinnerFragment();
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout, dinnerFragment).addToBackStack(null).commit();
-            }
-        });
-
     }
+
 }

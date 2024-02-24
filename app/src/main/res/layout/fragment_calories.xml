@@ -211,7 +211,9 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="16dp"
             android:elevation="16dp"
-            app:cardCornerRadius="16dp">
+            app:cardCornerRadius="16dp"
+            android:id="@+id/lunch_cv"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -254,6 +256,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/dinner_cv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"

@@ -5,8 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
@@ -26,7 +24,7 @@ import com.google.android.material.tabs.TabLayout;
  *
  */
 public class BreakfastFragment extends Fragment {
-    boolean fav_isClicked = false;
+    boolean breakfast_fav_isClicked = false;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,17 +86,17 @@ public class BreakfastFragment extends Fragment {
                 .replace(R.id.child_breakfast_frame, new BreakfastTodayFragment())
                 .commit();
 
-        ImageButton favourite_btn = view.findViewById(R.id.btn_add_to_favourite);
-        ImageButton change_meal_btn = view.findViewById(R.id.btn_change_meal);
+        ImageButton favourite_btn = view.findViewById(R.id.breakfast_btn_add_to_favourite);
+        ImageButton change_meal_btn = view.findViewById(R.id.breakfast_btn_change_meal);
         favourite_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!fav_isClicked){
-                    fav_isClicked = true;
+                if(!breakfast_fav_isClicked){
+                    breakfast_fav_isClicked = true;
                     favourite_btn.setImageResource(R.drawable.ic_favourite_red);
                 }
                 else{
-                    fav_isClicked = false;
+                    breakfast_fav_isClicked = false;
                     favourite_btn.setImageResource(R.drawable.ic_favourite_grey);
                 }
             }
