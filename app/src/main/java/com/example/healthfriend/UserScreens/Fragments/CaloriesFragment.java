@@ -12,54 +12,34 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.healthfriend.R;
+import com.example.healthfriend.UserScreens.Adapters.MealModel;
+import com.example.healthfriend.UserScreens.TodaysBreakfastSingleton;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Firebase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CaloriesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CaloriesFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
+    TextView deleteme;
+    TodaysBreakfastSingleton breakfast;
     public CaloriesFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CaloriesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CaloriesFragment newInstance(String param1, String param2) {
-        CaloriesFragment fragment = new CaloriesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -106,5 +86,33 @@ public class CaloriesFragment extends Fragment {
             }
         });
 
+        ProgressBar progressBar = view.findViewById(R.id.calories_progress_bar);
+        progressBar.setProgress(20);
+        deleteme = view.findViewById(R.id.deleteme_textViewData);
+//        breakfast = TodaysBreakfastSingleton.getInstance();
+//        loadNote();
+    }
+
+    public void loadNote() {
+//        documentRef.get()
+//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                        if (documentSnapshot.exists()) {
+//                            MealModel meal = documentSnapshot.toObject(MealModel.class);
+                            deleteme.setText("Title: " + breakfast.getTodaysBreakfast().getCalories());
+//                            Toast.makeText(getContext(), "Document does not exist", Toast.LENGTH_SHORT).show();
+//
+//                        } else {
+//                            Toast.makeText(getContext(), "Document does not exist", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//
+//                    }
+//                });
     }
 }
