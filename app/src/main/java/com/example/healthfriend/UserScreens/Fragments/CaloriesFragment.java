@@ -100,7 +100,7 @@ public class CaloriesFragment extends Fragment {
 //                    public void onSuccess(DocumentSnapshot documentSnapshot) {
 //                        if (documentSnapshot.exists()) {
 //                            MealModel meal = documentSnapshot.toObject(MealModel.class);
-                            deleteme.setText("Title: " + breakfast.getTodaysBreakfast().getCalories());
+                          //  deleteme.setText("Title: " + breakfast.getTodaysBreakfast().getCalories());
 //                            Toast.makeText(getContext(), "Document does not exist", Toast.LENGTH_SHORT).show();
 //
 //                        } else {
