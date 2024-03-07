@@ -1,5 +1,6 @@
 package com.example.healthfriend.UserScreens.Adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +11,17 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthfriend.R;
+import com.example.healthfriend.UserScreens.TodaysBreakfastSingleton;
 
 import java.util.List;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder> {
 
-    private List<Ingredient> ingredientList;
+    private List<IngredientModel> ingredientModelList;
     RecyclerView recyclerView;
 
-    public IngredientAdapter(List<Ingredient> ingredientList,  RecyclerView recyclerView) {
-        this.ingredientList = ingredientList;
+    public IngredientAdapter(List<IngredientModel> ingredientModelList, RecyclerView recyclerView) {
+        this.ingredientModelList = ingredientModelList;
         this.recyclerView = recyclerView;
     }
 
@@ -32,14 +34,19 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
 
     @Override
     public void onBindViewHolder(IngredientViewHolder holder, int position) {
-        Ingredient currentItem = ingredientList.get(position);
+        IngredientModel currentIngredient = ingredientModelList.get(position);
 
-        holder.textViewIngredientName.setText(currentItem.getIngredientName());
-        holder.textViewCalories.setText(currentItem.getCalories() + "Kcal, ");
-        holder.textViewServingSize.setText(currentItem.getServingSize());
+        holder.textViewIngredientName.setText(currentIngredient.getName());
+        holder.textViewCalories.setText(currentIngredient.getCalories() + "Kcal, ");
+        holder.textViewServingSize.setText(currentIngredient.getServingSize());
 
-        if (currentItem.isIngredientSelected()) {
+        if (currentIngredient.isIngredientSelected()) {
             holder.imageViewAddItem.setImageResource(R.drawable.ic_ingredient_check_green);
+            currentIngredient.setIngredientSelected(true);
+            TodaysBreakfastSingleton todaysBreakfastSingleton = TodaysBreakfastSingleton.getInstance();
+            Log.d("currentcal", Double.toString(todaysBreakfastSingleton.getTotalCalories()));
+            todaysBreakfastSingleton.setTotalCalories(todaysBreakfastSingleton.getTotalCalories() + currentIngredient.getCalories());
+            Log.d("aftercal", Double.toString(todaysBreakfastSingleton.getTotalCalories()));
 
         } else {
             holder.imageViewAddItem.setImageResource(R.drawable.ic_ingredient_unchecked);
@@ -51,7 +58,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
             @Override
             public void onClick(View v) {
                 // Toggle the image state
-                currentItem.setIngredientSelected(!currentItem.isIngredientSelected());
+                currentIngredient.setIngredientSelected(!currentIngredient.isIngredientSelected());
                 // Notify the adapter that the data has changed to reflect the new image state
                 notifyDataSetChanged();
             }
@@ -60,7 +67,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
 
     @Override
     public int getItemCount() {
-        return ingredientList.size();
+        return ingredientModelList.size();
     }
     public static class IngredientViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewIngredientName;

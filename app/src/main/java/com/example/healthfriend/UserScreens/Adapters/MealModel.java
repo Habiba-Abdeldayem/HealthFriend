@@ -7,7 +7,8 @@ public class MealModel {
     private double carbohydrates;
     private double fat;
     private double protein;
-    private ArrayList<Integer> meal_ingredients;
+    private ArrayList<Integer> meal_ingredients_id;
+    private ArrayList<IngredientModel> mealIngredient;
 
     public MealModel() {
     }
@@ -44,11 +45,11 @@ public class MealModel {
         this.protein = protein;
     }
 
-    public ArrayList<Integer> getMeal_ingredients() {
-        return meal_ingredients;
+    public ArrayList<Integer> getMeal_ingredients_id() {
+        return meal_ingredients_id;
     }
 
-    public void setMeal_ingredients(ArrayList<Integer> meal_ingredients) {
-        this.meal_ingredients = meal_ingredients;
+    public void setMeal_ingredients_id(ArrayList<Integer> meal_ingredients_id) {
+        this.meal_ingredients_id = meal_ingredients_id;
     }
 }

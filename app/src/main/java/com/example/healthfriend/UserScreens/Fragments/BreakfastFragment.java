@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import com.example.healthfriend.DoctorScreens.Change_meal_Fragment;
 import com.example.healthfriend.UserScreens.Adapters.BreakfastViewPagerAdapter;
 import com.example.healthfriend.R;
+import com.example.healthfriend.UserScreens.TodaysBreakfastSingleton;
 import com.google.android.material.tabs.TabLayout;
 
 /**
@@ -88,6 +90,9 @@ public class BreakfastFragment extends Fragment {
 
         ImageButton favourite_btn = view.findViewById(R.id.breakfast_btn_add_to_favourite);
         ImageButton change_meal_btn = view.findViewById(R.id.breakfast_btn_change_meal);
+        ProgressBar caloriesProgressBar= view.findViewById(R.id.breakfast_calories_progressbar);
+        double progress = (TodaysBreakfastSingleton.getInstance().getTotalCalories()/1500.0)*100;
+        caloriesProgressBar.setProgress((int)progress);
         favourite_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

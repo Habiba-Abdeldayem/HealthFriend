@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,8 @@ public class CaloriesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        breakfast = TodaysBreakfastSingleton.getInstance();
+
     }
 
     @Override
@@ -86,33 +89,23 @@ public class CaloriesFragment extends Fragment {
             }
         });
 
-        ProgressBar progressBar = view.findViewById(R.id.calories_progress_bar);
-        progressBar.setProgress(20);
+        ProgressBar progressBar = view.findViewById(R.id.fragment_calories_progress_bar);
+        double progress = (TodaysBreakfastSingleton.getInstance().getTotalCalories()/1500)*100;
+        progressBar.setProgress((int)progress);
         deleteme = view.findViewById(R.id.deleteme_textViewData);
-//        breakfast = TodaysBreakfastSingleton.getInstance();
-//        loadNote();
+        Log.d("habba","zz");
+
+        loadNote();
     }
 
     public void loadNote() {
-//        documentRef.get()
-//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                        if (documentSnapshot.exists()) {
-//                            MealModel meal = documentSnapshot.toObject(MealModel.class);
-                            deleteme.setText("Title: " + breakfast.getTodaysBreakfast().getCalories());
-//                            Toast.makeText(getContext(), "Document does not exist", Toast.LENGTH_SHORT).show();
-//
-//                        } else {
-//                            Toast.makeText(getContext(), "Document does not exist", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//
-//                    }
-//                });
+
+
+        if (breakfast.getTodaysBreakfast() != null) {
+            deleteme.setText("carbs: " + breakfast.getTodaysBreakfast().getCarbohydrates());
+        } else {
+            // Handle the case when todaysBreakfast is null
+            Toast.makeText(getContext(), "Today's breakfast is not available yet.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

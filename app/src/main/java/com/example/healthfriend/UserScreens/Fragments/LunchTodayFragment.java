@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.healthfriend.R;
-import com.example.healthfriend.UserScreens.Adapters.Ingredient;
+import com.example.healthfriend.UserScreens.Adapters.IngredientModel;
 import com.example.healthfriend.UserScreens.Adapters.IngredientAdapter;
 
 import java.util.ArrayList;
@@ -75,16 +75,16 @@ public class LunchTodayFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        List<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient("chicken", 200, "1 serving"));
-        ingredients.add(new Ingredient("rice", 300, "100 g"));
-        ingredients.add(new Ingredient("salad", 20, "100 g"));
-        ingredients.add(new Ingredient("Orange Juice", 120, "1 cup"));
+        List<IngredientModel> ingredientModels = new ArrayList<>();
+        ingredientModels.add(new IngredientModel("chicken", 200, "1 serving"));
+        ingredientModels.add(new IngredientModel("rice", 300, "100 g"));
+        ingredientModels.add(new IngredientModel("salad", 20, "100 g"));
+        ingredientModels.add(new IngredientModel("Orange Juice", 120, "1 cup"));
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_lunch_suggested_meals);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        IngredientAdapter adapter = new IngredientAdapter(ingredients, recyclerView);
+        IngredientAdapter adapter = new IngredientAdapter(ingredientModels, recyclerView);
         recyclerView.setAdapter(adapter);
 
 

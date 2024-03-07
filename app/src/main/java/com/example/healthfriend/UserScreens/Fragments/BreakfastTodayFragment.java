@@ -1,6 +1,5 @@
 package com.example.healthfriend.UserScreens.Fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,7 +14,8 @@ import android.view.ViewGroup;
 
 import com.example.healthfriend.R;
 import com.example.healthfriend.UserScreens.Adapters.IngredientAdapter;
-import com.example.healthfriend.UserScreens.Adapters.Ingredient;
+import com.example.healthfriend.UserScreens.Adapters.IngredientModel;
+import com.example.healthfriend.UserScreens.TodaysBreakfastSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,8 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class BreakfastTodayFragment extends Fragment {
+
+    TodaysBreakfastSingleton breakfastSingleton;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,6 +67,8 @@ public class BreakfastTodayFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        breakfastSingleton = TodaysBreakfastSingleton.getInstance();
+
     }
 
     @Override
@@ -78,30 +82,15 @@ public class BreakfastTodayFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        List<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient("Eggs", 100, "1 serving"));
-        ingredients.add(new Ingredient("Beens", 50, "100 g"));
-        ingredients.add(new Ingredient("Toast", 80, "1 slice"));
-        ingredients.add(new Ingredient("Orange Juice", 120, "1 cup"));
+        List<IngredientModel> todaysIngredient = breakfastSingleton.getBreakfastIngredients();
+
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_breakfast_suggested_meals);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        IngredientAdapter adapter = new IngredientAdapter(ingredients, recyclerView);
+        IngredientAdapter adapter = new IngredientAdapter(todaysIngredient, recyclerView);
         recyclerView.setAdapter(adapter);
 
-
-//        adapter.setOnItemClickListener(new IngredientAdapter.OnItemClickListener() {
-//            public void onItemClick(int position) {
-//                // Handle CardView click here
-//            }
-//
-//            @Override
-//            public void onAddClick(int position) {
-//                adapter.updateBackgroundColor(position, Color.GREEN);
-//
-//            }
-//        });
     }
 
 }

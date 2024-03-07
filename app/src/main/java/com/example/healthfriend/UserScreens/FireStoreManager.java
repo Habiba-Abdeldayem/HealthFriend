@@ -4,8 +4,11 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.healthfriend.UserScreens.Adapters.IngredientModel;
 import com.example.healthfriend.UserScreens.Adapters.MealModel;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -22,71 +25,84 @@ import java.util.Random;
 public class FireStoreManager {
     private FirebaseFirestore db;
     CollectionReference breakfastCollectionRef;
+    CollectionReference ingredientsCollectionRef;
     private FirestoreCallback callback;
 
     // Add a method to set the callback
     public void setFirestoreCallback(FirestoreCallback callback) {
         this.callback = callback;
     }
-//    CollectionReference lunchCollectionRef = db.collection("/BreakfastMeals");
-//    CollectionReference dinnerCollectionRef = db.collection("/BreakfastMeals");
-
-    // Get a reference to the specific document within the subcollection
 
     public FireStoreManager() {
         db = FirebaseFirestore.getInstance();
         breakfastCollectionRef = db.collection("/BreakfastMeals");
+        ingredientsCollectionRef = db.collection("/Ingredients");
     }
-
-    public List<MealModel> getBreakfastMeal() {
-        List<MealModel> suggestedBreakfastMeals = new ArrayList<>();
-
-// Define the range for calories, fat, and protein
-        double minCalories = 200; // Minimum calories
-        double maxCalories = 500; // Maximum calories
-        double minFat = 20.0; // Minimum fat
-        double maxFat = 30.0; // Maximum fat
-        double minProtein = 25.0; // Minimum protein
-        double maxProtein = 40.0; // Maximum protein
-
-// Perform a query to get documents within the specified ranges
-        Query query = breakfastCollectionRef
-                .whereGreaterThanOrEqualTo("calories", minCalories)
-                .whereLessThanOrEqualTo("calories", maxCalories)
-                .whereGreaterThanOrEqualTo("fat", minFat)
-                .whereLessThanOrEqualTo("fat", maxFat)
-                .whereGreaterThanOrEqualTo("protein", minProtein)
-                .whereLessThanOrEqualTo("protein", maxProtein);
-
-// Execute the query
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<MealModel> suggestedBreakfastMeals = new ArrayList<>();
-                    for (DocumentSnapshot document : task.getResult().getDocuments()) {
-                        MealModel meal = document.toObject(MealModel.class);
-                        suggestedBreakfastMeals.add(meal);
-                    }
-                    // Call the callback with the retrieved breakfast data
-                    if (callback != null) {
-                        callback.onBreakfastDataReady(suggestedBreakfastMeals);
-                    }
-                } else {
-                    Log.d("habiba", "Error getting documents: ", task.getException());
-                }
-            }
-        });
-
-        return suggestedBreakfastMeals;
-    }
-
-//    public List<> getIngredients(List<Integer> ingredientsId) {
-//
-//    }
 
     public interface FirestoreCallback {
-        void onBreakfastDataReady(List<MealModel> breakfastMeals);
+        void onSuccess(List<MealModel> meals);
+
+        void onSuccessIngredients(List<IngredientModel> ingredients);
+
+        void onFailure(Exception e);
     }
 
+    public void getBreakfasts() {
+
+        breakfastCollectionRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+                if (querySnapshot != null) {
+                    List<MealModel> meals = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : querySnapshot) {
+                        // Convert each document to MealModel
+                        MealModel meal = document.toObject(MealModel.class);
+                        String s =  Double.toString(meal.getMeal_ingredients_id().get(0));
+                        Log.d("hope",s);
+                        meals.add(meal);
+                    }
+                    // Callback with the list of meals
+                    callback.onSuccess(meals);
+                }
+            } else {
+                // Callback with the failure
+                callback.onFailure(task.getException());
+            }
+        });
+    }
+
+    public void getIngredients(List<Integer> ingredientsId) {
+        List<IngredientModel> mealIngredient = new ArrayList<>();
+
+        for (Integer ingredientId : ingredientsId) {
+            String ingredientIdString = String.valueOf(ingredientId); // Convert integer ID to string
+
+            // Construct a query to retrieve the document for the current ingredient ID
+            ingredientsCollectionRef.document(ingredientIdString)
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if (documentSnapshot.exists()) {
+                                IngredientModel ingredientModel = documentSnapshot.toObject(IngredientModel.class);
+                                mealIngredient.add(ingredientModel);
+                                callback.onSuccessIngredients(mealIngredient);
+
+                            } else {
+                                // Document doesn't exist for the given ingredient ID
+                                Log.d("Firestore", "Document does not exist for ingredient ID: " + ingredientIdString);
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Handle any errors that occur during the query
+                            Log.e("Firestore", "Error fetching ingredient document for ID: " + ingredientIdString, e);
+                        }
+                    });
+        }
+
+
+    }
 }
