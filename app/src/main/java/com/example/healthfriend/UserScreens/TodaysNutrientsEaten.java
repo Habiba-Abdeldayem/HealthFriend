@@ -2,17 +2,25 @@ package com.example.healthfriend.UserScreens;
 
 public class TodaysNutrientsEaten {
     private static Double eatenCalories;
+    private static TodaysNutrientsEaten instance;
     private static Double eatenCarbs;
     private static Double eatenFats;
     private static Double eatenProteins;
 
-    public TodaysNutrientsEaten() {
-        eatenCalories = 0.0;
-        eatenCarbs = 0.0;
-        eatenFats = 0.0;
-        eatenProteins = 0.0;
-    }
+    private TodaysNutrientsEaten() {
+            eatenCalories = 0.0;
+            eatenCarbs = 0.0;
+            eatenFats = 0.0;
+            eatenProteins = 0.0;
+        }
 
+
+    public static TodaysNutrientsEaten getInstance() {
+        if (instance == null) {
+            instance = new TodaysNutrientsEaten();
+        }
+        return instance;
+    }
     public static Double getEatenCalories() {
         return eatenCalories;
     }

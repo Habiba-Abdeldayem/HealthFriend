@@ -40,7 +40,7 @@ public class FireStoreManager {
         ingredientsCollectionRef = db.collection("/Ingredients");
         breakfastCollectionRef = db.collection("/BreakfastMeals");
         lunchCollectionRef = db.collection("/BreakfastMeals");
-        dinnerCollectionRef = db.collection("/DinnerMeals");
+        dinnerCollectionRef = db.collection("/BreakfastMeals");
     }
 
     public interface FirestoreCallback {

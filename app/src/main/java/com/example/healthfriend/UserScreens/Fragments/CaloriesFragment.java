@@ -43,7 +43,7 @@ public class CaloriesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         breakfast = TodaysBreakfastSingleton.getInstance();
-        todaysNutrientsEaten = new TodaysNutrientsEaten();
+        todaysNutrientsEaten = TodaysNutrientsEaten.getInstance();
         progress = (TodaysNutrientsEaten.getEatenCalories()/1500.0)*100;
 
     }

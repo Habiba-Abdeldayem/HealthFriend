@@ -16,7 +16,7 @@ public class TodaysLunchSingleton implements FireStoreManager.FirestoreCallback 
     private MealModel todaysLunch;
 
     private TodaysLunchSingleton() {
-        lunchTodaysNutrientsEaten = new TodaysNutrientsEaten();
+        lunchTodaysNutrientsEaten = TodaysNutrientsEaten.getInstance();
         fireStoreManager = new FireStoreManager();
         fireStoreManager.setFirestoreCallback(this);
         fireStoreManager.getLunches();

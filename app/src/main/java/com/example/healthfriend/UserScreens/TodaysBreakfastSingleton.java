@@ -23,7 +23,7 @@ public class TodaysBreakfastSingleton implements FireStoreManager.FirestoreCallb
     private MealModel todaysBreakfast;
 
     private TodaysBreakfastSingleton() {
-        breakfastTodaysNutrientsEaten = new TodaysNutrientsEaten();
+        breakfastTodaysNutrientsEaten = TodaysNutrientsEaten.getInstance();
         fireStoreManager = new FireStoreManager();
         fireStoreManager.setFirestoreCallback(this);
         fireStoreManager.getBreakfasts();

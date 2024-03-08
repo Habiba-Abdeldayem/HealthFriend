@@ -8,7 +8,7 @@
     android:background="@color/grey"
     tools:context=".UserScreens.Fragments.DinnerFragment">
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dinner_frame_layout"
@@ -40,7 +40,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Breakfast"
+                        android:text="Dinner"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -76,6 +76,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/dinner_textview_calories_progress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -86,6 +87,7 @@
                     </RelativeLayout>
 
                     <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/dinner_calories_progressbar"
                         android:layout_width="match_parent"
                         android:layout_height="34dp"
                         android:progress="45"
@@ -113,6 +115,7 @@
                                 android:textStyle="bold" />
 
                             <com.google.android.material.progressindicator.LinearProgressIndicator
+                                android:id="@+id/dinner_carbs_progressbar"
                                 android:layout_width="match_parent"
                                 android:layout_height="34dp"
                                 android:progress="45"
@@ -120,6 +123,7 @@
                                 app:trackThickness="8dp" />
 
                             <TextView
+                                android:id="@+id/dinner_textview_carbs_progress"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="49 g / 183 g"
@@ -142,6 +146,7 @@
                                 android:textStyle="bold" />
 
                             <com.google.android.material.progressindicator.LinearProgressIndicator
+                                android:id="@+id/dinner_proteins_progressbar"
                                 android:layout_width="match_parent"
                                 android:layout_height="34dp"
                                 android:progress="20"
@@ -149,6 +154,7 @@
                                 app:trackThickness="8dp" />
 
                             <TextView
+                                android:id="@+id/dinner_textview_proteins_progress"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="49 g / 183 g"
@@ -171,6 +177,7 @@
                                 android:textStyle="bold" />
 
                             <com.google.android.material.progressindicator.LinearProgressIndicator
+                                android:id="@+id/dinner_fats_progressbar"
                                 android:layout_width="match_parent"
                                 android:layout_height="34dp"
                                 android:progress="65"
@@ -178,6 +185,7 @@
                                 app:trackThickness="8dp" />
 
                             <TextView
+                                android:id="@+id/dinner_textview_fats_progress"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="49 g / 183 g"
@@ -235,14 +243,19 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <FrameLayout
-                android:id="@+id/child_dinner_frame"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            </FrameLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_dinner_suggested_meals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
         </LinearLayout>
-    </FrameLayout>
+    </ScrollView>
 
 
 </FrameLayout>
