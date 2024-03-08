@@ -1,4 +1,5 @@
 package com.example.healthfriend.UserScreens.Fragments;
+import com.example.healthfriend.UserScreens.Fragments.water.presentation.WaterFragment;
 
 import android.os.Bundle;
 

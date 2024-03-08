@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import com.example.healthfriend.UserScreens.Fragments.profile.presentation.ProfileFragment;
 
 import android.os.Bundle;
 import android.provider.Settings;
@@ -13,7 +14,7 @@ import android.widget.FrameLayout;
 
 import com.example.healthfriend.UserScreens.Fragments.HomeFragment;
 import com.example.healthfriend.R;
-import com.example.healthfriend.UserScreens.Fragments.ProfileFragment;
+
 import com.example.healthfriend.UserScreens.Fragments.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
