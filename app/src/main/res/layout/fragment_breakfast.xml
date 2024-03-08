@@ -7,10 +7,9 @@
     android:background="@color/grey"
     tools:context=".UserScreens.Fragments.BreakfastFragment"
     >
-<FrameLayout
+<ScrollView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/breakfast_frame_layout"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,7 +87,6 @@
                     android:id="@+id/breakfast_calories_progressbar"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
-                    android:progress="45"
                     app:indicatorColor="@color/dark_green"
                     app:trackThickness="8dp" />
 
@@ -235,12 +233,18 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <FrameLayout
-            android:id="@+id/child_breakfast_frame"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-        </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_breakfast_suggested_meals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
     </LinearLayout>
-</FrameLayout>
+</ScrollView>
 </FrameLayout>

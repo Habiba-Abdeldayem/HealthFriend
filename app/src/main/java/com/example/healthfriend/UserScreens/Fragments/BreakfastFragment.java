@@ -5,8 +5,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +17,26 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.example.healthfriend.DoctorScreens.Change_meal_Fragment;
-import com.example.healthfriend.UserScreens.Adapters.BreakfastViewPagerAdapter;
 import com.example.healthfriend.R;
+import com.example.healthfriend.UserScreens.Adapters.IngredientAdapter;
+import com.example.healthfriend.UserScreens.Adapters.IngredientModel;
+import com.example.healthfriend.UserScreens.BreakfastAdapterInterface;
 import com.example.healthfriend.UserScreens.TodaysBreakfastSingleton;
+import com.example.healthfriend.UserScreens.TodaysNutrientsEaten;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link BreakfastFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
  */
-public class BreakfastFragment extends Fragment {
+public class BreakfastFragment extends Fragment implements BreakfastAdapterInterface {
     boolean breakfast_fav_isClicked = false;
+    private TodaysBreakfastSingleton breakfastSingleton;
+    IngredientAdapter adapter;
+    ProgressBar caloriesProgressBar;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,9 +46,6 @@ public class BreakfastFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    TabLayout breakfastTabs;
-    ViewPager2 breakfastViewPager;
-    BreakfastViewPagerAdapter breakfastAdapter;
 
     /**
      * Use this factory method to create a new instance of
@@ -82,25 +89,29 @@ public class BreakfastFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // Now, you can add your fragment to the FrameLayout programmatically
-        getChildFragmentManager().beginTransaction()
-                .replace(R.id.child_breakfast_frame, new BreakfastTodayFragment())
-                .commit();
-
         ImageButton favourite_btn = view.findViewById(R.id.breakfast_btn_add_to_favourite);
         ImageButton change_meal_btn = view.findViewById(R.id.breakfast_btn_change_meal);
-        ProgressBar caloriesProgressBar= view.findViewById(R.id.breakfast_calories_progressbar);
-        double progress = (TodaysBreakfastSingleton.getInstance().getTotalCalories()/1500.0)*100;
-        caloriesProgressBar.setProgress((int)progress);
+        caloriesProgressBar = view.findViewById(R.id.breakfast_calories_progressbar);
+        breakfastSingleton = TodaysBreakfastSingleton.getInstance();
+        List<IngredientModel> todaysIngredient = breakfastSingleton.getBreakfastIngredients();
+
+        if (breakfastSingleton.getBreakfastIngredients() != null) {
+
+            RecyclerView recyclerView = view.findViewById(R.id.rv_breakfast_suggested_meals);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            IngredientAdapter adapter = new IngredientAdapter(todaysIngredient, recyclerView, this);
+            recyclerView.setAdapter(adapter);
+
+
+        }
+
         favourite_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!breakfast_fav_isClicked){
+                if (!breakfast_fav_isClicked) {
                     breakfast_fav_isClicked = true;
                     favourite_btn.setImageResource(R.drawable.ic_favourite_red);
-                }
-                else{
+                } else {
                     breakfast_fav_isClicked = false;
                     favourite_btn.setImageResource(R.drawable.ic_favourite_grey);
                 }
@@ -115,4 +126,20 @@ public class BreakfastFragment extends Fragment {
         });
     }
 
+    @Override
+    public void addItem(int position) {
+        if (breakfastSingleton.getTodaysBreakfast() != null) {
+            double progress = (TodaysNutrientsEaten.getEatenCalories() / 1500.0) * 100;
+            caloriesProgressBar.setProgress((int) progress);
+        }
+    }
+
+    @Override
+    public void removeItem(int position) {
+        if (breakfastSingleton.getTodaysBreakfast() != null) {
+            double progress = (TodaysNutrientsEaten.getEatenCalories() / 1500.0) * 100;
+            caloriesProgressBar.setProgress((int) progress);
+        }
+
+    }
 }

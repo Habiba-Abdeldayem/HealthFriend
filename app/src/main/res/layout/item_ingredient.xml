@@ -58,6 +58,8 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_gravity="end"
+            android:clickable="true"
+            android:focusable="true"
             android:src="@drawable/ic_ingredient_unchecked"
             app:backgroundTint="@color/white" />
 

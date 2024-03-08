@@ -83,9 +83,9 @@ public class LunchTodayFragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_lunch_suggested_meals);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        IngredientAdapter adapter = new IngredientAdapter(ingredientModels, recyclerView);
-        recyclerView.setAdapter(adapter);
+//
+//        IngredientAdapter adapter = new IngredientAdapter(ingredientModels, recyclerView);
+//        recyclerView.setAdapter(adapter);
 
 
 //        adapter.setOnItemClickListener(new IngredientAdapter.OnItemClickListener() {
