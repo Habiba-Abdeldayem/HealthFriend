@@ -25,6 +25,8 @@ import java.util.Random;
 public class FireStoreManager {
     private FirebaseFirestore db;
     CollectionReference breakfastCollectionRef;
+    CollectionReference lunchCollectionRef;
+    CollectionReference dinnerCollectionRef;
     CollectionReference ingredientsCollectionRef;
     private FirestoreCallback callback;
 
@@ -35,8 +37,10 @@ public class FireStoreManager {
 
     public FireStoreManager() {
         db = FirebaseFirestore.getInstance();
-        breakfastCollectionRef = db.collection("/BreakfastMeals");
         ingredientsCollectionRef = db.collection("/Ingredients");
+        breakfastCollectionRef = db.collection("/BreakfastMeals");
+        lunchCollectionRef = db.collection("/BreakfastMeals");
+        dinnerCollectionRef = db.collection("/DinnerMeals");
     }
 
     public interface FirestoreCallback {
@@ -45,30 +49,6 @@ public class FireStoreManager {
         void onSuccessIngredients(List<IngredientModel> ingredients);
 
         void onFailure(Exception e);
-    }
-
-    public void getBreakfasts() {
-
-        breakfastCollectionRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                QuerySnapshot querySnapshot = task.getResult();
-                if (querySnapshot != null) {
-                    List<MealModel> meals = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : querySnapshot) {
-                        // Convert each document to MealModel
-                        MealModel meal = document.toObject(MealModel.class);
-                        String s =  Double.toString(meal.getMeal_ingredients_id().get(0));
-                        Log.d("hope",s);
-                        meals.add(meal);
-                    }
-                    // Callback with the list of meals
-                    callback.onSuccess(meals);
-                }
-            } else {
-                // Callback with the failure
-                callback.onFailure(task.getException());
-            }
-        });
     }
 
     public void getIngredients(List<Integer> ingredientsId) {
@@ -105,4 +85,68 @@ public class FireStoreManager {
 
 
     }
+    public void getBreakfasts() {
+
+        breakfastCollectionRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+                if (querySnapshot != null) {
+                    List<MealModel> fireStoreBreakfastMeals = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : querySnapshot) {
+                        // Convert each document to MealModel
+                        MealModel breakfastMeal = document.toObject(MealModel.class);
+                        fireStoreBreakfastMeals.add(breakfastMeal);
+                    }
+                    // Callback with the list of meals
+                    callback.onSuccess(fireStoreBreakfastMeals);
+                }
+            } else {
+                // Callback with the failure
+                callback.onFailure(task.getException());
+            }
+        });
+    }
+    public void getLunches() {
+
+        lunchCollectionRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+                if (querySnapshot != null) {
+                    List<MealModel> fireStoreLunchMeals = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : querySnapshot) {
+                        // Convert each document to MealModel
+                        MealModel lunchMeal = document.toObject(MealModel.class);
+                        fireStoreLunchMeals.add(lunchMeal);
+                    }
+                    // Callback with the list of meals
+                    callback.onSuccess(fireStoreLunchMeals);
+                }
+            } else {
+                // Callback with the failure
+                callback.onFailure(task.getException());
+            }
+        });
+    }
+    public void getDinners() {
+
+        dinnerCollectionRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+                if (querySnapshot != null) {
+                    List<MealModel> fireStoreDinnerMeals = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : querySnapshot) {
+                        // Convert each document to MealModel
+                        MealModel dinnerMeal = document.toObject(MealModel.class);
+                        fireStoreDinnerMeals.add(dinnerMeal);
+                    }
+                    // Callback with the list of meals
+                    callback.onSuccess(fireStoreDinnerMeals);
+                }
+            } else {
+                // Callback with the failure
+                callback.onFailure(task.getException());
+            }
+        });
+    }
+
 }

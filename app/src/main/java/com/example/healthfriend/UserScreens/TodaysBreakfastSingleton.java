@@ -1,6 +1,9 @@
 package com.example.healthfriend.UserScreens;
 
+import static java.security.AccessController.getContext;
+
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.healthfriend.UserScreens.Adapters.IngredientModel;
 import com.example.healthfriend.UserScreens.Adapters.MealModel;
@@ -18,24 +21,14 @@ public class TodaysBreakfastSingleton implements FireStoreManager.FirestoreCallb
     private List<MealModel> availableBreakfasts;
     private List<IngredientModel> breakfastIngredients;
     private MealModel todaysBreakfast;
-    private int totalCalories;
 
     private TodaysBreakfastSingleton() {
         breakfastTodaysNutrientsEaten = new TodaysNutrientsEaten();
         fireStoreManager = new FireStoreManager();
         fireStoreManager.setFirestoreCallback(this);
         fireStoreManager.getBreakfasts();
-        totalCalories = 0;
-//        String s =  Double.toString(availableBreakfasts.get(0).getCalories());
-//        Log.d("tagaya","zz");
     }
 
-//    public static TodaysBreakfastSingleton getInstance() {
-//        if (instance == null) {
-//            instance = new TodaysBreakfastSingleton();
-//        }
-//        return instance;
-//    }
     public static synchronized TodaysBreakfastSingleton getInstance() {
         if (instance == null) {
             instance = new TodaysBreakfastSingleton();
@@ -46,14 +39,6 @@ public class TodaysBreakfastSingleton implements FireStoreManager.FirestoreCallb
     // Getter method for todaysBreakfast
     public synchronized MealModel getTodaysBreakfast() {
         return todaysBreakfast;
-    }
-
-    public int getTotalCalories() {
-        return totalCalories;
-    }
-
-    public void setTotalCalories(int totalCalories) {
-        this.totalCalories = totalCalories;
     }
 
     @Override
@@ -75,7 +60,7 @@ public class TodaysBreakfastSingleton implements FireStoreManager.FirestoreCallb
 
     @Override
     public void onFailure(Exception e) {
-        Log.d("aaah",e.getMessage());
+        System.out.println("something went wrong");
     }
 
     public List<MealModel> getAvailableBreakfasts() {

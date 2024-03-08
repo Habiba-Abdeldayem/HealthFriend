@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.healthfriend.R;
 import com.example.healthfriend.UserScreens.Adapters.MealModel;
 import com.example.healthfriend.UserScreens.TodaysBreakfastSingleton;
+import com.example.healthfriend.UserScreens.TodaysNutrientsEaten;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Firebase;
@@ -30,10 +31,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CaloriesFragment extends Fragment {
 
-
-
     TextView deleteme;
     TodaysBreakfastSingleton breakfast;
+    TodaysNutrientsEaten todaysNutrientsEaten;
+    double progress;
     public CaloriesFragment() {
         // Required empty public constructor
     }
@@ -42,6 +43,8 @@ public class CaloriesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         breakfast = TodaysBreakfastSingleton.getInstance();
+        todaysNutrientsEaten = new TodaysNutrientsEaten();
+        progress = (TodaysNutrientsEaten.getEatenCalories()/1500.0)*100;
 
     }
 
@@ -90,10 +93,10 @@ public class CaloriesFragment extends Fragment {
         });
 
         ProgressBar progressBar = view.findViewById(R.id.fragment_calories_progress_bar);
-        double progress = (TodaysBreakfastSingleton.getInstance().getTotalCalories()/1500)*100;
         progressBar.setProgress((int)progress);
+//        progressBar.notify();
         deleteme = view.findViewById(R.id.deleteme_textViewData);
-        Log.d("habba","zz");
+        Log.d("habba",Double.toString(progress));
 
         loadNote();
     }
@@ -102,10 +105,18 @@ public class CaloriesFragment extends Fragment {
 
 
         if (breakfast.getTodaysBreakfast() != null) {
-            deleteme.setText("carbs: " + breakfast.getTodaysBreakfast().getCarbohydrates());
+            deleteme.setText("fats: " + breakfast.getTodaysBreakfast().getFat());
         } else {
             // Handle the case when todaysBreakfast is null
-            Toast.makeText(getContext(), "Today's breakfast is not available yet.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Check network connection", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void onResume() {
+        super.onResume();
+
+        ProgressBar progressBar = requireView().findViewById(R.id.fragment_calories_progress_bar);
+        double progress = (TodaysNutrientsEaten.getEatenCalories() / 1500.0) * 100;
+        progressBar.setProgress((int) progress);
     }
 }

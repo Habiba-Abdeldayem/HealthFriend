@@ -7,7 +7,7 @@
     android:background="@color/grey"
     tools:context=".UserScreens.Fragments.LunchFragment">
 
-    <FrameLayout
+    <ScrollView
         android:id="@+id/lunch_frame_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -75,6 +75,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/lunch_textview_calories_progress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -85,6 +86,7 @@
                     </RelativeLayout>
 
                     <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/lunch_calories_progressbar"
                         android:layout_width="match_parent"
                         android:layout_height="34dp"
                         android:progress="45"
@@ -112,6 +114,7 @@
                                 android:textStyle="bold" />
 
                             <com.google.android.material.progressindicator.LinearProgressIndicator
+                                android:id="@+id/lunch_carbs_progressbar"
                                 android:layout_width="match_parent"
                                 android:layout_height="34dp"
                                 android:progress="45"
@@ -119,6 +122,7 @@
                                 app:trackThickness="8dp" />
 
                             <TextView
+                                android:id="@+id/lunch_carbs_progress"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="49 g / 183 g"
@@ -141,6 +145,7 @@
                                 android:textStyle="bold" />
 
                             <com.google.android.material.progressindicator.LinearProgressIndicator
+                                android:id="@+id/lunch_proteins_progressbar"
                                 android:layout_width="match_parent"
                                 android:layout_height="34dp"
                                 android:progress="20"
@@ -148,6 +153,7 @@
                                 app:trackThickness="8dp" />
 
                             <TextView
+                                android:id="@+id/lunch_textview_proteins_progress"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="49 g / 183 g"
@@ -170,6 +176,7 @@
                                 android:textStyle="bold" />
 
                             <com.google.android.material.progressindicator.LinearProgressIndicator
+                                android:id="@+id/lunch_fats_progressbar"
                                 android:layout_width="match_parent"
                                 android:layout_height="34dp"
                                 android:progress="65"
@@ -177,6 +184,7 @@
                                 app:trackThickness="8dp" />
 
                             <TextView
+                                android:id="@+id/lunch_textview_fats_progress"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="49 g / 183 g"
@@ -233,13 +241,18 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <FrameLayout
-                android:id="@+id/child_lunch_frame"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            </FrameLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_lunch_suggested_meals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
         </LinearLayout>
-    </FrameLayout>
+    </ScrollView>
 
 </FrameLayout>

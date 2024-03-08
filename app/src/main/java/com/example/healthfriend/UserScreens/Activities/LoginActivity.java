@@ -60,8 +60,8 @@ joinText.setOnClickListener(new View.OnClickListener() {
 google_btn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        Intent intent=new Intent(LoginActivity.this,GoogleSignActivity.class);
-        startActivity(intent);
+//        Intent intent=new Intent(LoginActivity.this,GoogleSignActivity.class);
+//        startActivity(intent);
     }
 });
     }

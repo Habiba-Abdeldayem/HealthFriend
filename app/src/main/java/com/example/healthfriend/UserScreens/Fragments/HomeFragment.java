@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.healthfriend.R;
+import com.example.healthfriend.UserScreens.TodaysBreakfastSingleton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +55,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TodaysBreakfastSingleton breakfast = TodaysBreakfastSingleton.getInstance();
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
