@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     TextView joinText;
+    ImageView google_btn;
     EditText email,pass;
     ProgressDialog progressDialog;
     FirebaseAuth mAuth;
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         button = findViewById(R.id.login_btn);
+        google_btn=findViewById(R.id.login_google);
         email=findViewById(R.id.login_email);
         joinText=findViewById(R.id.join_text);
         pass=findViewById(R.id.login_pass);
@@ -54,7 +57,13 @@ joinText.setOnClickListener(new View.OnClickListener() {
                startActivity(intent);
     }
 });
-
+google_btn.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent=new Intent(LoginActivity.this,GoogleSignActivity.class);
+        startActivity(intent);
+    }
+});
     }
 
     private void performLogin() {
