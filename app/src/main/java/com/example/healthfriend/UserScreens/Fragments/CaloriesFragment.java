@@ -102,10 +102,10 @@ public class CaloriesFragment extends Fragment {
 
 
         if (breakfast.getTodaysBreakfast() != null) {
-            deleteme.setText("carbs: " + breakfast.getTodaysBreakfast().getCarbohydrates());
+            deleteme.setText("fats: " + breakfast.getTodaysBreakfast().getFat());
         } else {
             // Handle the case when todaysBreakfast is null
-            Toast.makeText(getContext(), "Today's breakfast is not available yet.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Check network connection", Toast.LENGTH_SHORT).show();
         }
     }
 }

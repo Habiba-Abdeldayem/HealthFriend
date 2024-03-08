@@ -49,12 +49,18 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
                     // it was unselected, then selected after press
                     if (!currentIngredient.isIngredientSelected()) {
                         TodaysNutrientsEaten.setEatenCalories(TodaysNutrientsEaten.getEatenCalories() + currentIngredient.getCalories());
+                        TodaysNutrientsEaten.setEatenCarbs(TodaysNutrientsEaten.getEatenCarbs() + currentIngredient.getCarbohydrates());
+                        TodaysNutrientsEaten.setEatenProteins(TodaysNutrientsEaten.getEatenProteins() + currentIngredient.getProtein());
+                        TodaysNutrientsEaten.setEatenFats(TodaysNutrientsEaten.getEatenFats() + currentIngredient.getFat());
                         if (holder.getAdapterPosition() != RecyclerView.NO_POSITION) {
                             breakfastAdapterInterface.addItem(holder.getAdapterPosition());
                         }
                     }
                     else if (currentIngredient.isIngredientSelected()) {
                         TodaysNutrientsEaten.setEatenCalories(TodaysNutrientsEaten.getEatenCalories() - currentIngredient.getCalories());
+                        TodaysNutrientsEaten.setEatenCarbs(TodaysNutrientsEaten.getEatenCarbs() - currentIngredient.getCarbohydrates());
+                        TodaysNutrientsEaten.setEatenProteins(TodaysNutrientsEaten.getEatenProteins() - currentIngredient.getProtein());
+                        TodaysNutrientsEaten.setEatenFats(TodaysNutrientsEaten.getEatenFats() - currentIngredient.getFat());
                         if (holder.getAdapterPosition() != RecyclerView.NO_POSITION) {
                             breakfastAdapterInterface.removeItem(holder.getAdapterPosition());
                         }
@@ -98,8 +104,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
             textViewServingSize = itemView.findViewById(R.id.textViewServingSize);
             imageViewAddItem = itemView.findViewById(R.id.btn_add_item);
             imageViewFav = itemView.findViewById(R.id.breakfast_btn_add_to_favourite);
-            cardView = itemView.findViewById(R.id.cardView); // Initialize CardView reference
-
+            cardView = itemView.findViewById(R.id.cardView);
             imageViewAddItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

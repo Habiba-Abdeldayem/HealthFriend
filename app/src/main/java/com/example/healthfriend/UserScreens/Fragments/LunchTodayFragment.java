@@ -76,10 +76,10 @@ public class LunchTodayFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         List<IngredientModel> ingredientModels = new ArrayList<>();
-        ingredientModels.add(new IngredientModel("chicken", 200, "1 serving"));
-        ingredientModels.add(new IngredientModel("rice", 300, "100 g"));
-        ingredientModels.add(new IngredientModel("salad", 20, "100 g"));
-        ingredientModels.add(new IngredientModel("Orange Juice", 120, "1 cup"));
+//        ingredientModels.add(new IngredientModel("chicken", 200, "1 serving"));
+//        ingredientModels.add(new IngredientModel("rice", 300, "100 g"));
+//        ingredientModels.add(new IngredientModel("salad", 20, "100 g"));
+//        ingredientModels.add(new IngredientModel("Orange Juice", 120, "1 cup"));
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_lunch_suggested_meals);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

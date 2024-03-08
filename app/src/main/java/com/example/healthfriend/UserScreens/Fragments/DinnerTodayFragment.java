@@ -77,10 +77,10 @@ public class DinnerTodayFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         List<IngredientModel> ingredientModels = new ArrayList<>();
-        ingredientModels.add(new IngredientModel("yogurt", 100, "1 serving"));
-        ingredientModels.add(new IngredientModel("Beens", 50, "100 g"));
-        ingredientModels.add(new IngredientModel("Toast", 80, "1 slice"));
-        ingredientModels.add(new IngredientModel("Orange Juice", 120, "1 cup"));
+//        ingredientModels.add(new IngredientModel("yogurt", 100, "1 serving"));
+//        ingredientModels.add(new IngredientModel("Beens", 50, "100 g"));
+//        ingredientModels.add(new IngredientModel("Toast", 80, "1 slice"));
+//        ingredientModels.add(new IngredientModel("Orange Juice", 120, "1 cup"));
 
 //        RecyclerView recyclerView = view.findViewById(R.id.rv_dinner_suggested_meals);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
