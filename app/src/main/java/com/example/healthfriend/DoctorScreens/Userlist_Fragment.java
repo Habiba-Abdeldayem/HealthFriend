@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.healthfriend.R;
+import com.example.healthfriend.UserScreens.User;
 
 import java.util.ArrayList;
 
@@ -31,10 +32,10 @@ public class Userlist_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_userlist_, container, false);
         ArrayList<User> users=new ArrayList<User>();
-        users.add(new User(150,50,R.drawable.ff,"shimaa"));
-        users.add(new User(160,80,R.drawable.car4,"aya"));
-        users.add(new User(170,60,R.drawable.ff,"ahmed"));
-        // database=MarketoDb.getInstance(getApplicationContext());
+//        users.add(new User(150,50,R.drawable.ff,"shimaa"));
+//        users.add(new User(160,80,R.drawable.car4,"aya"));
+//        users.add(new User(170,60,R.drawable.ff,"ahmed"));
+//        // database=MarketoDb.getInstance(getApplicationContext());
         // categories = database.getCategories();
         // List<Product> products = database.getproductList();
         RecyclerView recyclerView = view.findViewById(R.id.rv_userList);

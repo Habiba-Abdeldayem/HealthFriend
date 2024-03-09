@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.example.healthfriend.R;
+import com.example.healthfriend.UserScreens.User;
 
 public class Doctor_Main extends AppCompatActivity implements UserList.OnItemClickListener,UserList.OnItemLongClickListener {
    // private ArrayList<Product> products;

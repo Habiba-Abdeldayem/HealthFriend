@@ -5,7 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserScreens.Fragments.CaloriesFragment">
+    tools:context=".UserScreens.Fragments.MealsOverviewFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ProgressBar
-                android:id="@+id/fragment_calories_progress_bar"
+                android:id="@+id/fragment_mealsOverview_progress_bar"
                 style="@style/CircularDeterminateProgressBar"
                 android:layout_width="162dp"
                 android:layout_height="162dp"
@@ -39,17 +39,17 @@
                 tools:progress="60" />
 
             <TextView
-
+                android:id="@+id/mealsOverview_calories_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="1400 \nleft"
                 android:textColor="@color/white"
-                android:textSize="26sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_calories_progress_bar"
-                app:layout_constraintEnd_toEndOf="@+id/fragment_calories_progress_bar"
-                app:layout_constraintStart_toStartOf="@+id/fragment_calories_progress_bar"
-                app:layout_constraintTop_toTopOf="@+id/fragment_calories_progress_bar" />
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_mealsOverview_progress_bar"
+                app:layout_constraintEnd_toEndOf="@+id/fragment_mealsOverview_progress_bar"
+                app:layout_constraintStart_toStartOf="@+id/fragment_mealsOverview_progress_bar"
+                app:layout_constraintTop_toTopOf="@+id/fragment_mealsOverview_progress_bar" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -86,6 +86,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/mealsOverview_carbs_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0/72g"
@@ -104,11 +105,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Potein"
+                        android:text="Poteins"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/mealsOverview_proteins_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0/72g"
@@ -127,11 +129,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fat"
+                        android:text="Fats"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/mealsOverview_fats_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0/72g"
@@ -153,7 +156,7 @@
             android:drawableStart="@drawable/calendar_icon"
             android:drawablePadding="8dp"
             android:gravity="center_horizontal"
-            android:text="Today 03 Feb"
+            android:text="Today 10 March"
             android:textSize="16sp" />
 
         <androidx.cardview.widget.CardView

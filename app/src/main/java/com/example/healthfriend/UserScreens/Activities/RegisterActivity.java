@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.healthfriend.UserScreens.User;
 import com.example.healthfriend.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +29,8 @@ FirebaseAuth mAuth;
 FirebaseUser mUser;
 String emailPattern="[a-zA-Z0-9._-]+@[a-z]+\\.[a-z]+";
     AppCompatButton registerBtn;
+    private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,13 +67,13 @@ progressDialog=new ProgressDialog(this);
         String PASS=pass.getText().toString();
         String CONPASS=confirmPass.getText().toString();
         if(!EMAIL.matches(emailPattern)){
-            email.setError("Enter Connext Email");
+            email.setError("Please enter a valid email");
         } else if (PASS.isEmpty()||PASS.length()<6) {
-           pass.setError("Enter Proper Password");
+           pass.setError("Please enter a proper password");
         } else if (!PASS.equals(CONPASS)) {
-            confirmPass.setError("password Nort Match Both Field");
+            confirmPass.setError("passwords don't match");
         }else {
-            progressDialog.setMessage("please waitv while registration");
+            progressDialog.setMessage("please wait for registration");
             progressDialog.setTitle("Registration");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
@@ -79,7 +82,7 @@ progressDialog=new ProgressDialog(this);
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isComplete()){
                         progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this,"Registration suces",Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this,"Registration Done",Toast.LENGTH_LONG).show();
                         sendUserToAnthorActivity();
                     }else {
                         progressDialog.dismiss();
@@ -91,7 +94,14 @@ progressDialog=new ProgressDialog(this);
     }
 
     private void sendUserToAnthorActivity() {
-        Intent intent=new Intent(RegisterActivity.this, HomeActivity.class);
+        User newUser = User.getInstance();
+        newUser.setEmail(email.getText().toString());
+//        QuestionnaireFragment questionnaireFragment = new QuestionnaireFragment();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        transaction.replace(R.id.register_frame, questionnaireFragment).addToBackStack(null).commit();
+
+        Intent intent=new Intent(RegisterActivity.this, QuestionnaireAct.class);
         intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TASK|intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

@@ -22,7 +22,7 @@ public class TodaysNutrientsEaten {
         return instance;
     }
     public static Double getEatenCalories() {
-        return eatenCalories;
+        return Math.round(eatenCalories*100.0)/100.0;
     }
 
     public static void setEatenCalories(Double eatenCalories) {
@@ -30,7 +30,7 @@ public class TodaysNutrientsEaten {
     }
 
     public static Double getEatenCarbs() {
-        return eatenCarbs;
+        return Math.round(eatenCarbs*100.0)/100.0;
     }
 
     public static void setEatenCarbs(Double eatenCarbs) {
@@ -38,7 +38,7 @@ public class TodaysNutrientsEaten {
     }
 
     public static Double getEatenFats() {
-        return eatenFats;
+        return Math.round(eatenFats*100.0)/100.0;
     }
 
     public static void setEatenFats(Double eatenFats) {
@@ -46,7 +46,7 @@ public class TodaysNutrientsEaten {
     }
 
     public static Double getEatenProteins() {
-        return eatenProteins;
+        return Math.round(eatenProteins*100.0)/100.0;
     }
 
     public static void setEatenProteins(Double eatenProteins) {

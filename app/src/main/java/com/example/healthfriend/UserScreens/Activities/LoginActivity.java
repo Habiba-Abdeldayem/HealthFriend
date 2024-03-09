@@ -13,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.healthfriend.UserScreens.User;
 import com.example.healthfriend.R;
+import com.example.healthfriend.UserScreens.FireStoreManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -67,15 +69,18 @@ google_btn.setOnClickListener(new View.OnClickListener() {
     }
 
     private void performLogin() {
+        FireStoreManager fireStoreManager = new FireStoreManager();
+        User.getInstance().setEmail(email.getText().toString());
+        fireStoreManager.getUserPersonalInfo(User.getInstance());
         String EMAIL=email.getText().toString();
         String PASS=pass.getText().toString();
 
         if(!EMAIL.matches(emailPattern)){
-            email.setError("Enter Connext Email");
+            email.setError("please Enter a valid email");
         } else if (PASS.isEmpty()) {
-            pass.setError("Enter  Password");
+            pass.setError("please Enter a Password");
         } else {
-            progressDialog.setMessage("please waitv while Login");
+            progressDialog.setMessage("logging in..");
             progressDialog.setTitle("Login");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
@@ -85,7 +90,7 @@ google_btn.setOnClickListener(new View.OnClickListener() {
 
                 if(task.isSuccessful()){
                     progressDialog.dismiss();
-                    Toast.makeText(LoginActivity.this,"Login suces",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"Login succeeded",Toast.LENGTH_LONG).show();
                     sendUserToAnthorActivity();
                 }else {
                     progressDialog.dismiss();

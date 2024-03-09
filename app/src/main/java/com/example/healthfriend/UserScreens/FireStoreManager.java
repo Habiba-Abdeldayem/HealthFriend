@@ -14,13 +14,13 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
 public class FireStoreManager {
     private FirebaseFirestore db;
@@ -28,6 +28,8 @@ public class FireStoreManager {
     CollectionReference lunchCollectionRef;
     CollectionReference dinnerCollectionRef;
     CollectionReference ingredientsCollectionRef;
+    DocumentReference userDocumentRef;
+    DocumentReference personalInfoDocumentRef;
     private FirestoreCallback callback;
 
     // Add a method to set the callback
@@ -85,6 +87,7 @@ public class FireStoreManager {
 
 
     }
+
     public void getBreakfasts() {
 
         breakfastCollectionRef.get().addOnCompleteListener(task -> {
@@ -106,6 +109,7 @@ public class FireStoreManager {
             }
         });
     }
+
     public void getLunches() {
 
         lunchCollectionRef.get().addOnCompleteListener(task -> {
@@ -127,6 +131,7 @@ public class FireStoreManager {
             }
         });
     }
+
     public void getDinners() {
 
         dinnerCollectionRef.get().addOnCompleteListener(task -> {
@@ -148,5 +153,71 @@ public class FireStoreManager {
             }
         });
     }
+
+    public void setUserPersonalInfo(User u) {
+        // Create a Map to represent your data
+        Map<String, Object> user_personal_data = new HashMap<>();
+        user_personal_data.put("age", u.getAge());
+        user_personal_data.put("daily_calories_need", u.getDaily_calories_need());
+        user_personal_data.put("daily_water_need", u.getDaily_water_need());
+        user_personal_data.put("gender", u.getGender());
+        user_personal_data.put("height", u.getHeight());
+        user_personal_data.put("weight", u.getWeight());
+        user_personal_data.put("plan", u.getPlan());
+
+        personalInfoDocumentRef = db.collection("/Users").document(u.getEmail()).collection("/personal_info").document("/data");
+
+        personalInfoDocumentRef.set(user_personal_data).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+    }
+
+    public void getUserPersonalInfo(User u) {
+        userDocumentRef = db.document("/Users/" + u.getEmail() + "/personal_info/data");
+        Task<DocumentSnapshot> documentSnapshotTask = userDocumentRef.get();
+
+        documentSnapshotTask.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        u.fromDocumentSnapshot(document);
+
+                        // Access the document data here
+                    } else {
+                        // Document doesn't exist
+                    }
+                } else {
+                    // Handle task failure
+                    Exception e = task.getException();
+                    if (e != null) {
+                        Log.e("aaao", "Error fetching document: " + e.getMessage());
+                    }
+                }
+            }
+        });
+//        userDocumentRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//
+//                if (documentSnapshot.exists()) {
+//                    u.fromDocumentSnapshot(documentSnapshot);
+//                }
+//            }
+//        });
+
+
+    }
+
 
 }

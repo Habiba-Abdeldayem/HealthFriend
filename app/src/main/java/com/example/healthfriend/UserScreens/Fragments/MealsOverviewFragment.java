@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,24 +17,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.healthfriend.R;
-import com.example.healthfriend.UserScreens.Adapters.MealModel;
 import com.example.healthfriend.UserScreens.TodaysBreakfastSingleton;
 import com.example.healthfriend.UserScreens.TodaysNutrientsEaten;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.Firebase;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-public class CaloriesFragment extends Fragment {
+public class MealsOverviewFragment extends Fragment {
 
-    TextView deleteme;
+    private TextView deleteme, caloriesLeft, carbsLeft,proteinsLeft,fatsLeft;
     TodaysBreakfastSingleton breakfast;
     TodaysNutrientsEaten todaysNutrientsEaten;
-    double progress;
-    public CaloriesFragment() {
+    private double progress;
+    public MealsOverviewFragment() {
         // Required empty public constructor
     }
 
@@ -52,7 +43,7 @@ public class CaloriesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_calories, container, false);
+        View view = inflater.inflate(R.layout.fragment_meals_overview, container, false);
 
         return view;
     }
@@ -64,7 +55,10 @@ public class CaloriesFragment extends Fragment {
         CardView breakfastCv = view.findViewById(R.id.breakfast_cv);
         CardView lunchCv = view.findViewById(R.id.lunch_cv);
         CardView dinnerCv = view.findViewById(R.id.dinner_cv);
-
+        caloriesLeft =view.findViewById(R.id.mealsOverview_calories_tv);
+        carbsLeft =view.findViewById(R.id.mealsOverview_carbs_tv);
+        proteinsLeft =view.findViewById(R.id.mealsOverview_proteins_tv);
+        fatsLeft =view.findViewById(R.id.mealsOverview_fats_tv);
         breakfastCv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,11 +86,9 @@ public class CaloriesFragment extends Fragment {
             }
         });
 
-        ProgressBar progressBar = view.findViewById(R.id.fragment_calories_progress_bar);
+        ProgressBar progressBar = view.findViewById(R.id.fragment_mealsOverview_progress_bar);
         progressBar.setProgress((int)progress);
-//        progressBar.notify();
         deleteme = view.findViewById(R.id.deleteme_textViewData);
-        Log.d("habba",Double.toString(progress));
 
         loadNote();
     }
@@ -114,9 +106,19 @@ public class CaloriesFragment extends Fragment {
 
     public void onResume() {
         super.onResume();
+        updateCaloriesProgress();
 
-        ProgressBar progressBar = requireView().findViewById(R.id.fragment_calories_progress_bar);
-        double progress = (TodaysNutrientsEaten.getEatenCalories() / 1500.0) * 100;
-        progressBar.setProgress((int) progress);
+    }
+
+    private void updateCaloriesProgress(){
+        ProgressBar caloriesProgressBar = requireView().findViewById(R.id.fragment_mealsOverview_progress_bar);
+        double caloriesProgress = (TodaysNutrientsEaten.getEatenCalories() / 1500.0) * 100;
+        caloriesProgressBar.setProgress((int) caloriesProgress);
+
+        caloriesLeft.setText(Double.toString(1500 - TodaysNutrientsEaten.getEatenCalories()) + "\n Left");
+        carbsLeft.setText(TodaysNutrientsEaten.getEatenCarbs()+"/100");
+        proteinsLeft.setText(TodaysNutrientsEaten.getEatenProteins()+"/100");
+        fatsLeft.setText(TodaysNutrientsEaten.getEatenFats()+"/100");
+
     }
 }

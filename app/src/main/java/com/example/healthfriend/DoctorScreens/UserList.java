@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthfriend.R;
+import com.example.healthfriend.UserScreens.User;
 
 import java.util.List;
 
@@ -43,28 +44,28 @@ public class UserList extends RecyclerView.Adapter<AvailableViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull AvailableViewHolder holder, int position) {
 
-        User u=user.get(position);
-        holder.name.setText(u.getName());
-        holder.height.setText(Integer.toString(u.getHeight())+ "Cm");
-        holder.wight.setText(Integer.toString(u.getWeight())+ "Kg");
-        holder.image.setImageResource(u.getImage());
+//        User u=user.get(position);
+//        holder.name.setText(u.getName());
+//        holder.height.setText(Integer.toString(u.getHeight())+ "Cm");
+//        holder.wight.setText(Integer.toString(u.getWeight())+ "Kg");
+//        holder.image.setImageResource(u.getImage());
 //        holder.datetimeTextView.setText(trip.getTripTime());
 //        holder.priceTextView.setText(Double.toString(trip.getTripFee()) + "$");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (itemClickListener != null) {
-                    itemClickListener.onItemClick(u);
-                }
+//                if (itemClickListener != null) {
+//                    itemClickListener.onItemClick(u);
+//                }
             }
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if (longClickListener != null) {
-                    longClickListener.onItemLongClick(u);
-                }
+//                if (longClickListener != null) {
+//                    longClickListener.onItemLongClick(u);
+//                }
                 return true; // Consume the long click event
             }
         });
