@@ -10,13 +10,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.healthfriend.R;
 import com.example.healthfriend.UserScreens.TodaysBreakfastSingleton;
@@ -100,18 +98,15 @@ public class HomeFragment extends Fragment {
         ProgressBar progressBar = view.findViewById(R.id.home_progress_bar);
         caloriesLeft = view.findViewById(R.id.homeFragment_calories_left);
         progressBar.setProgress((int)progress);
-        String d = Integer.toString(User.getInstance().getAge());
-        Toast myToast = Toast.makeText(getContext(), d, Toast.LENGTH_LONG);
-        myToast.show();
-        caloriesLeft.setText(d);
+        caloriesLeft.setText(1500 - TodaysNutrientsEaten.getEatenCalories() + "\nleft");
     }
     public void onResume() {
         super.onResume();
 
         ProgressBar progressBar = requireView().findViewById(R.id.home_progress_bar);
-        double progress = (TodaysNutrientsEaten.getEatenCalories() / 1500.0) * 100;
+        double progress = (TodaysNutrientsEaten.getEatenCalories() / User.getInstance().getDaily_calories_need()) * 100;
         progressBar.setProgress((int) progress);
-        caloriesLeft.setText(1500 - TodaysNutrientsEaten.getEatenCalories() + "\nleft");
+        caloriesLeft.setText(User.getInstance().getDaily_calories_need() - TodaysNutrientsEaten.getEatenCalories() + "\nleft");
 
     }
 }
