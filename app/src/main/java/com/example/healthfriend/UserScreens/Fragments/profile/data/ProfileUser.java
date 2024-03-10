@@ -6,17 +6,13 @@ public final class ProfileUser {
     private final String height;
     private final String gender;
     private final String age;
-    private final String target;
-    private final String calories;
 
-    public ProfileUser(String weight, String height, String gender, String age, String target, String calories) {
+    public ProfileUser(String weight, String height, String gender, String age) {
         // Add data validation logic here (optional)
         this.weight = weight;
         this.height = height;
         this.gender = gender;
         this.age = age;
-        this.target = target;
-        this.calories = calories;
     }
 
     public String getWeight() {
@@ -35,12 +31,5 @@ public final class ProfileUser {
         return age;
     }
 
-    public String getTarget() {
-        return target;
-    }
-
-    public String getCalories() {
-        return calories;
-    }
 }
 

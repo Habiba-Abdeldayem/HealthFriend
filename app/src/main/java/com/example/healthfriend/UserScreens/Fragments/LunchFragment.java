@@ -70,10 +70,10 @@ public class LunchFragment extends Fragment implements BreakfastAdapterInterface
 
         if (lunchSingleton.getLunchIngredients() != null) {
 
-            RecyclerView recyclerView = view.findViewById(R.id.rv_lunch_suggested_meals);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            IngredientAdapter adapter = new IngredientAdapter(todaysIngredient, recyclerView, this);
-            recyclerView.setAdapter(adapter);
+//            RecyclerView recyclerView = view.findViewById(R.id.rv_lunch_suggested_meals);
+//            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//            IngredientAdapter adapter = new IngredientAdapter(todaysIngredient, recyclerView, this);
+//            recyclerView.setAdapter(adapter);
 
 
         }

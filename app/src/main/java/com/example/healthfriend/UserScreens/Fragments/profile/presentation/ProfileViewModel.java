@@ -47,8 +47,6 @@ public class ProfileViewModel extends ViewModel {
                     _weight.postValue(user.getWeight());  // Use appropriate getters
                     _age.postValue(user.getAge());
                     _gender.postValue(user.getGender());
-                    _target.postValue(user.getTarget());
-                    _calories.postValue(user.getCalories());
                 }
             }
 

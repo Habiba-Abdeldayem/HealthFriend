@@ -12,16 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthfriend.R;
 import com.example.healthfriend.UserScreens.BreakfastAdapterInterface;
+import com.example.healthfriend.UserScreens.PythonIngredient;
 import com.example.healthfriend.UserScreens.TodaysNutrientsEaten;
 
 import java.util.List;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder> {
-    private List<IngredientModel> ingredientModelList;
+    private List<PythonIngredient> ingredientModelList;
     RecyclerView recyclerView;
     private final BreakfastAdapterInterface breakfastAdapterInterface;
 
-    public IngredientAdapter(List<IngredientModel> ingredientModelList, RecyclerView recyclerView, BreakfastAdapterInterface breakfastAdapterInterface) {
+    public IngredientAdapter(List<PythonIngredient> ingredientModelList, RecyclerView recyclerView, BreakfastAdapterInterface breakfastAdapterInterface) {
         this.ingredientModelList = ingredientModelList;
         this.recyclerView = recyclerView;
         this.breakfastAdapterInterface = breakfastAdapterInterface;
@@ -30,17 +31,17 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     @Override
     public IngredientViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ingredient, parent, false);
-        IngredientViewHolder vh = new IngredientViewHolder(v, breakfastAdapterInterface);
+        IngredientViewHolder vh = new IngredientViewHolder(v);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(IngredientViewHolder holder, int position) {
-        IngredientModel currentIngredient = ingredientModelList.get(position);
+        PythonIngredient currentIngredient = ingredientModelList.get(position);
 
         holder.textViewIngredientName.setText(currentIngredient.getName());
         holder.textViewCalories.setText(currentIngredient.getCalories() + "Kcal, ");
-        holder.textViewServingSize.setText(currentIngredient.getServingSize());
+//        holder.textViewServingSize.setText(currentIngredient.getServingSize());
 
         holder.imageViewAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,18 +50,18 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
                     // it was unselected, then selected after press
                     if (!currentIngredient.isIngredientSelected()) {
                         TodaysNutrientsEaten.setEatenCalories(TodaysNutrientsEaten.getEatenCalories() + currentIngredient.getCalories());
-                        TodaysNutrientsEaten.setEatenCarbs(TodaysNutrientsEaten.getEatenCarbs() + currentIngredient.getCarbohydrates());
+                        TodaysNutrientsEaten.setEatenCarbs(TodaysNutrientsEaten.getEatenCarbs() + currentIngredient.getCarbs());
                         TodaysNutrientsEaten.setEatenProteins(TodaysNutrientsEaten.getEatenProteins() + currentIngredient.getProtein());
-                        TodaysNutrientsEaten.setEatenFats(TodaysNutrientsEaten.getEatenFats() + currentIngredient.getFat());
+                        TodaysNutrientsEaten.setEatenFats(TodaysNutrientsEaten.getEatenFats() + currentIngredient.getFats());
                         if (holder.getAdapterPosition() != RecyclerView.NO_POSITION) {
                             breakfastAdapterInterface.addItem(holder.getAdapterPosition());
                         }
                     }
                     else  {
                         TodaysNutrientsEaten.setEatenCalories(TodaysNutrientsEaten.getEatenCalories() - currentIngredient.getCalories());
-                        TodaysNutrientsEaten.setEatenCarbs(TodaysNutrientsEaten.getEatenCarbs() - currentIngredient.getCarbohydrates());
+                        TodaysNutrientsEaten.setEatenCarbs(TodaysNutrientsEaten.getEatenCarbs() - currentIngredient.getCarbs());
                         TodaysNutrientsEaten.setEatenProteins(TodaysNutrientsEaten.getEatenProteins() - currentIngredient.getProtein());
-                        TodaysNutrientsEaten.setEatenFats(TodaysNutrientsEaten.getEatenFats() - currentIngredient.getFat());
+                        TodaysNutrientsEaten.setEatenFats(TodaysNutrientsEaten.getEatenFats() - currentIngredient.getFats());
                         if (holder.getAdapterPosition() != RecyclerView.NO_POSITION) {
                             breakfastAdapterInterface.removeItem(holder.getAdapterPosition());
                         }
@@ -97,7 +98,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
         public CardView cardView;
 
 
-        public IngredientViewHolder(View itemView, BreakfastAdapterInterface breakfastAdapterInterface) {
+        public IngredientViewHolder(View itemView) {
             super(itemView);
             textViewIngredientName = itemView.findViewById(R.id.textViewIngredientName);
             textViewCalories = itemView.findViewById(R.id.textViewCalories);
@@ -105,13 +106,8 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
             imageViewAddItem = itemView.findViewById(R.id.btn_add_item);
             imageViewFav = itemView.findViewById(R.id.breakfast_btn_add_to_favourite);
             cardView = itemView.findViewById(R.id.cardView);
-            imageViewAddItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
 
-                }
-            });
         }
     }
 

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.healthfriend.R;
 import com.example.healthfriend.UserScreens.Fragments.profile.domain.DialogueCallback;
 import com.example.healthfriend.UserScreens.Fragments.profile.domain.EditUserCallback;
+import com.example.healthfriend.UserScreens.User;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -45,33 +46,29 @@ public class ProfileFragment extends Fragment {
         heightTV = view.findViewById(R.id.height_tv);
         ageTV = view.findViewById(R.id.age_tv);
         genderTV = view.findViewById(R.id.gender_tv);
-        targetTV = view.findViewById(R.id.target_tv);
-        caloriesTV = view.findViewById(R.id.calories_tv);
 
         weightEditBtn = view.findViewById(R.id.edit_weight);
         heightEditBtn = view.findViewById(R.id.edit_height);
         ageEditBtn = view.findViewById(R.id.edit_age);
         genderEditBtn = view.findViewById(R.id.edit_gender);
-        targetEditBtn = view.findViewById(R.id.edit_target);
-        caloriesEditBtn = view.findViewById(R.id.edit_calories);
 
         viewModel.initializeManager(db);
         viewModel.getProfileData();
 
         viewModel.weight.observe(getViewLifecycleOwner(), weight -> {
-            weightTV.setText("Weight: " + weight);
+            weightTV.setText("Weight: " + User.getInstance().getWeight());
         });
 
         viewModel.height.observe(getViewLifecycleOwner(), height -> {
-            heightTV.setText("Height: " + height);
+            heightTV.setText("Height: " + User.getInstance().getHeight());
         });
 
         viewModel.age.observe(getViewLifecycleOwner(), age -> {
-            ageTV.setText("Age: " + age);
+            ageTV.setText("Age: " + User.getInstance().getAge());
         });
 
         viewModel.gender.observe(getViewLifecycleOwner(), gender -> {
-            genderTV.setText("Gender: " + gender);
+            genderTV.setText("Gender: " + User.getInstance().getGender());
         });
 
         viewModel.target.observe(getViewLifecycleOwner(), target -> {

@@ -20,16 +20,18 @@ import com.example.healthfriend.R;
 import com.example.healthfriend.UserScreens.Adapters.IngredientAdapter;
 import com.example.healthfriend.UserScreens.Adapters.IngredientModel;
 import com.example.healthfriend.UserScreens.BreakfastAdapterInterface;
+import com.example.healthfriend.UserScreens.PythonBreakfast;
+import com.example.healthfriend.UserScreens.PythonIngredient;
 import com.example.healthfriend.UserScreens.TodaysBreakfastSingleton;
 import com.example.healthfriend.UserScreens.TodaysNutrientsEaten;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class BreakfastFragment extends Fragment implements BreakfastAdapterInterface {
     boolean breakfast_fav_isClicked = false;
-    private TodaysBreakfastSingleton breakfastSingleton;
-    IngredientAdapter adapter;
+    private PythonBreakfast pythonBreakfast;
     private ProgressBar caloriesProgressBar, carbsProgressBar , proteinsProgressBar, fatsProgressBar;
     private TextView textview_calories_progress, textview_carbs_progress, textview_proteins_progress, textview_fats_progress;
 
@@ -64,14 +66,24 @@ public class BreakfastFragment extends Fragment implements BreakfastAdapterInter
         textview_fats_progress = view.findViewById(R.id.breakfast_textview_fats_progress);
         updateCaloriesProgress(); updateCarbsProgress(); updateProteinsProgress(); updateFatsProgress();
 
-        breakfastSingleton = TodaysBreakfastSingleton.getInstance();
-        List<IngredientModel> todaysIngredient = breakfastSingleton.getBreakfastIngredients();
+        pythonBreakfast = PythonBreakfast.getInstance();
+        List<PythonIngredient> pythonIngredients = new ArrayList<>();
 
-        if (breakfastSingleton.getBreakfastIngredients() != null) {
+        // Adding elements to the list
+        pythonIngredients.add(new PythonIngredient("Ingredient 1", 10.5, 100.0, 5.0, 20.0));
+        pythonIngredients.add(new PythonIngredient("Ingredient 2", 15.0, 150.0, 7.0, 25.0));
+        pythonIngredients.add(new PythonIngredient("Ingredient 3", 20.0, 200.0, 10.0, 30.0));
+        pythonBreakfast.setBreakfastPythonIngredients(pythonIngredients);
+        List<PythonIngredient> breakfastIngredients = pythonBreakfast.getBreakfastPythonIngredients();
+
+//        breakfastSingleton = TodaysBreakfastSingleton.getInstance();
+//        List<IngredientModel> todaysIngredient = breakfastSingleton.getBreakfastIngredients();
+
+        if (breakfastIngredients != null) {
 
             RecyclerView recyclerView = view.findViewById(R.id.rv_breakfast_suggested_meals);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            IngredientAdapter adapter = new IngredientAdapter(todaysIngredient, recyclerView, this);
+            IngredientAdapter adapter = new IngredientAdapter(breakfastIngredients, recyclerView, this);
             recyclerView.setAdapter(adapter);
 
 
@@ -100,22 +112,22 @@ public class BreakfastFragment extends Fragment implements BreakfastAdapterInter
 
     @Override
     public void addItem(int position) {
-        if (breakfastSingleton.getTodaysBreakfast() != null) {
+//        if (pythonBreakfast.getTodaysBreakfast() != null) {
             updateCaloriesProgress();
             updateCarbsProgress();
             updateProteinsProgress();
             updateFatsProgress();
-        }
+//        }
     }
 
     @Override
     public void removeItem(int position) {
-        if (breakfastSingleton.getTodaysBreakfast() != null) {
+//        if (breakfastSingleton.getTodaysBreakfast() != null) {
             updateCaloriesProgress();
             updateCarbsProgress();
             updateProteinsProgress();
             updateFatsProgress();
-        }
+//        }
 
     }
 

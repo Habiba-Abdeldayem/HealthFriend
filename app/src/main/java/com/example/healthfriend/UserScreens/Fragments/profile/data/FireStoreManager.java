@@ -2,6 +2,9 @@ package com.example.healthfriend.UserScreens.Fragments.profile.data;
 
 import com.example.healthfriend.UserScreens.Fragments.profile.domain.EditUserCallback;
 import com.example.healthfriend.UserScreens.Fragments.profile.domain.GetUserCallback;
+import com.example.healthfriend.UserScreens.User;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -15,20 +18,25 @@ public class FireStoreManager {
     }
 
     public void getUser(final GetUserCallback callback) {  // Change return type to void
-        db.collection("profile")
-                .document("pY7jkNH0LxVkqH2BzeHn")
+        db.collection("Users")
+                .document(User.getInstance().getEmail())
+                .collection("personal_info")
+                .document("data")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         DocumentSnapshot doc = task.getResult();
                         if (doc != null) {
                             ProfileUser user = new ProfileUser(
-                                    doc.getString("weight"),
-                                    doc.getString("height"),
-                                    doc.getString("gender"),
-                                    doc.getString("age"),
-                                    doc.getString("target"),
-                                    doc.getString("calories"));
+                                    String.valueOf(doc.getLong("weight")),
+                                    String.valueOf(doc.getLong("height")),
+                                    String.valueOf(doc.getLong("gender")),
+                                    String.valueOf(doc.getLong("age"))
+//                                    doc.getString("weight"),
+//                                    doc.getString("height"),
+//                                    doc.getString("gender"),
+//                                    doc.getString("age")
+                            );
                             callback.onSuccess(user);  // Notify success
                         } else {
                             callback.onError("No document found");  // Handle missing document
@@ -40,8 +48,10 @@ public class FireStoreManager {
     }
 
     public void editWeight(String value, final EditUserCallback callback) {
-        db.collection("profile")
-                .document("pY7jkNH0LxVkqH2BzeHn")
+        db.collection("Users")
+                .document(User.getInstance().getEmail())
+                .collection("personal_info")
+                .document("data")
                 .update("weight", value)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -53,8 +63,10 @@ public class FireStoreManager {
     }
 
     public void editHeight(String value, final EditUserCallback callback) {
-        db.collection("profile")
-                .document("pY7jkNH0LxVkqH2BzeHn")
+        db.collection("Users")
+                .document(User.getInstance().getEmail())
+                .collection("personal_info")
+                .document("data")
                 .update("height", value)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -65,8 +77,10 @@ public class FireStoreManager {
                 });
     }
     public void editAge(String value, final EditUserCallback callback) {
-        db.collection("profile")
-                .document("pY7jkNH0LxVkqH2BzeHn")
+        db.collection("Users")
+                .document(User.getInstance().getEmail())
+                .collection("personal_info")
+                .document("data")
                 .update("age", value)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -77,8 +91,10 @@ public class FireStoreManager {
                 });
     }
     public void editGender(String value, final EditUserCallback callback) {
-        db.collection("profile")
-                .document("pY7jkNH0LxVkqH2BzeHn")
+        db.collection("Users")
+                .document(User.getInstance().getEmail())
+                .collection("personal_info")
+                .document("data")
                 .update("gender", value)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -89,8 +105,10 @@ public class FireStoreManager {
                 });
     }
     public void editTarget(String value, final EditUserCallback callback) {
-        db.collection("profile")
-                .document("pY7jkNH0LxVkqH2BzeHn")
+        db.collection("Users")
+                .document(User.getInstance().getEmail())
+                .collection("personal_info")
+                .document("data")
                 .update("target", value)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -101,8 +119,10 @@ public class FireStoreManager {
                 });
     }
     public void editCalories(String value, final EditUserCallback callback) {
-        db.collection("profile")
-                .document("pY7jkNH0LxVkqH2BzeHn")
+        db.collection("Users")
+                .document(User.getInstance().getEmail())
+                .collection("personal_info")
+                .document("data")
                 .update("calories", value)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

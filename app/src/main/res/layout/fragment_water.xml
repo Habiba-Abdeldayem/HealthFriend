@@ -13,7 +13,7 @@
 
         <ProgressBar
             android:id="@+id/progress_bar"
-            style="@style/CircularDeterminateProgressBar"
+            style="@style/WaterCircularDeterminateProgressBar"
             android:layout_width="294dp"
             android:layout_height="255dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -54,11 +54,11 @@
             app:layout_constraintVertical_bias="0.41"
             tools:text="/ " />
 
-        <Button
+        <ImageButton
             android:id="@+id/button_incr"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:background="#03A9F4"
+            android:background="@drawable/ic_add_water"
             android:text="+"
             android:textColor="@color/white"
             android:textSize="40sp"
@@ -70,11 +70,11 @@
             app:layout_constraintVertical_bias="0.489"
             tools:ignore="MissingConstraints" />
 
-        <Button
+        <ImageButton
             android:id="@+id/button_decr"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:background="#03A9F4"
+            android:background="@drawable/ic_water_minus"
             android:text="-"
             android:textColor="@color/white"
             android:textSize="40sp"

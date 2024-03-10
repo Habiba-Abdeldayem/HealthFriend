@@ -2,6 +2,7 @@ package com.example.healthfriend.UserScreens.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,7 +35,6 @@ public class QuestionnaireAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire);
 
-        Log.d("quest", User.getInstance().getEmail());
         currentUser = User.getInstance();
         weight=findViewById(R.id.weight);
         height=findViewById(R.id.height);
@@ -93,13 +93,18 @@ public class QuestionnaireAct extends AppCompatActivity {
                 currentUser.setAge(a);
                 currentUser.setHeight(h);
                 currentUser.setWeight(w);
-                currentUser.setDaily_water_need();
+                currentUser.setPlan(selectedGoal);
                 currentUser.setDaily_calories_need();
+                currentUser.setGender(gender);
+                currentUser.setDaily_water_need();
                 currentUser.setDaily_carbs_need();
                 currentUser.setDaily_proteins_need();
                 currentUser.setDaily_fats_need();
                 fireStoreManager = new FireStoreManager();
                 fireStoreManager.setUserPersonalInfo(currentUser);
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 

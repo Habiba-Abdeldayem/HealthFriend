@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.healthfriend.R;
 import com.example.healthfriend.UserScreens.TodaysBreakfastSingleton;
 import com.example.healthfriend.UserScreens.TodaysNutrientsEaten;
+import com.example.healthfriend.UserScreens.User;
 
 public class MealsOverviewFragment extends Fragment {
 
@@ -88,21 +89,9 @@ public class MealsOverviewFragment extends Fragment {
 
         ProgressBar progressBar = view.findViewById(R.id.fragment_mealsOverview_progress_bar);
         progressBar.setProgress((int)progress);
-        deleteme = view.findViewById(R.id.deleteme_textViewData);
 
-        loadNote();
     }
 
-    public void loadNote() {
-
-
-        if (breakfast.getTodaysBreakfast() != null) {
-            deleteme.setText("fats: " + breakfast.getTodaysBreakfast().getFat());
-        } else {
-            // Handle the case when todaysBreakfast is null
-            Toast.makeText(getContext(), "Check network connection", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     public void onResume() {
         super.onResume();
@@ -115,10 +104,10 @@ public class MealsOverviewFragment extends Fragment {
         double caloriesProgress = (TodaysNutrientsEaten.getEatenCalories() / 1500.0) * 100;
         caloriesProgressBar.setProgress((int) caloriesProgress);
 
-        caloriesLeft.setText(Double.toString(1500 - TodaysNutrientsEaten.getEatenCalories()) + "\n Left");
-        carbsLeft.setText(TodaysNutrientsEaten.getEatenCarbs()+"/100");
-        proteinsLeft.setText(TodaysNutrientsEaten.getEatenProteins()+"/100");
-        fatsLeft.setText(TodaysNutrientsEaten.getEatenFats()+"/100");
+        caloriesLeft.setText(User.getInstance().getDaily_calories_need() - TodaysNutrientsEaten.getEatenCalories() + "\n Left");
+        carbsLeft.setText(TodaysNutrientsEaten.getEatenCarbs()+"/" + User.getInstance().getDaily_carbs_need());
+        proteinsLeft.setText(TodaysNutrientsEaten.getEatenProteins()+"/" + User.getInstance().getDaily_proteins_need());
+        fatsLeft.setText(TodaysNutrientsEaten.getEatenFats()+"/" + User.getInstance().getDaily_fats_need());
 
     }
 }
